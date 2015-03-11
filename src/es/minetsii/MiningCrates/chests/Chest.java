@@ -33,4 +33,17 @@ public class Chest {
 	public String getCommand() {
 		return command;
 	}
+	
+	public void setProbability(Double probability){
+		this.probability = probability;
+	}
+	
+	public Double getProbChest(){
+		Double ret = 0.0;
+		for(Chest chest : MiningCrates.chestList.keySet()){
+			ret += chest.getProbability();
+		}
+		ret = this.getProbability() * 100 / ret;
+		return ret;
+	}
 }

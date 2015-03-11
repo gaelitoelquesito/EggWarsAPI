@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import org.apache.commons.lang.StringUtils;
@@ -19,7 +20,7 @@ public class MiningCrates extends JavaPlugin {
 	public static String prefix = "§f[§eMCratesP§f] ";
 
 	public static String group_Permission = "miningcrates.group.";
-	public static List<Chest> chestList;
+	public static Map<Chest, Double> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;
 
@@ -62,14 +63,24 @@ public class MiningCrates extends JavaPlugin {
 	}
 
 	private void loadChests() {
-		chestList = new ArrayList<Chest>();
+		chestList = new HashMap<Chest, Double>();
 		for (String chest : this.getConfig().getStringList("chests")) {
 			String[] chestArray = chest.split("#");
 			if (chestArray.length != 4)
 				this.getLogger().log(Level.SEVERE,
 						"Error in the chests at the config.");
-			chestList.add(new Chest(chestArray[0], new Double(chestArray[1]),
-					new Boolean(chestArray[2]), chestArray[3]));
+			Chest newChest = new Chest(chestArray[0], new Double(chestArray[1]),
+					new Boolean(chestArray[2]), chestArray[3]);
+			chestList.put(newChest, newChest.getProbability());
+		}
+		updateChestsProb();
+	}
+	
+	private void updateChestsProb(){
+		Double prob = 0.0;
+		for(Chest chest : chestList.keySet()){
+			prob += chest.getProbability();
+			chestList.put(chest, prob);
 		}
 	}
 
@@ -100,5 +111,13 @@ public class MiningCrates extends JavaPlugin {
 			groups.put(groupArray[0], new Double(groupArray[1]));
 		}
 	}
-
+	
+	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+	    for (Entry<T, E> entry : map.entrySet()) {
+	        if (value.equals(entry.getValue())) {
+	            return entry.getKey();
+	        }
+	    }
+	    return null;
+	}
 }
