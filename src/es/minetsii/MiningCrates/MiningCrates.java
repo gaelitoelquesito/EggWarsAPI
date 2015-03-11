@@ -1,21 +1,23 @@
 package es.minetsii.MiningCrates;
 
-import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import com.deathlyflags.TempPerm.TempPermCommand;
+public class MiningCrates extends JavaPlugin {
 
-public class MiningCrates {
+	public static String prefix = "§f[§eMCratesP§f] ";
+	
+	public static String use_Permission = "tempperm.use";
 	
 	@Override
 	public void onEnable() {
 		
 		getConfig().options().header(
 				"#############################################" + "\n" +
-				"#       - TempPerm for GroupManager -       #" + "\n" +
+				"#             - Mining Crates -             #" + "\n" +
 				"#############################################" + "\n"
 		);
 
-		getConfig().addDefault("playerList", new String[] {});
+		getConfig().addDefault("chests", new String[] {});
 		
 		getConfig().options().copyHeader(true);
 		getConfig().options().copyDefaults(true);
@@ -23,4 +25,11 @@ public class MiningCrates {
 		saveConfig();
 		reloadConfig();	
 	}
+	
+	@Override
+	public void onDisable() {
+		
+		
+	}
+	
 }
