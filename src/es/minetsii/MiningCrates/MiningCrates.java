@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import es.minetsii.MiningCrates.chests.Chest;
+import es.minetsii.MiningCrates.chests.Crate;
 import es.minetsii.MiningCrates.events.Mine;
 
 public class MiningCrates extends JavaPlugin {
@@ -20,7 +20,7 @@ public class MiningCrates extends JavaPlugin {
 	public static String prefix = "§f[§eMCratesP§f] ";
 
 	public static String group_Permission = "miningcrates.group.";
-	public static Map<Chest, Double> chestList;
+	public static Map<Crate, Double> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;
 
@@ -63,13 +63,13 @@ public class MiningCrates extends JavaPlugin {
 	}
 
 	private void loadChests() {
-		chestList = new HashMap<Chest, Double>();
+		chestList = new HashMap<Crate, Double>();
 		for (String chest : this.getConfig().getStringList("chests")) {
 			String[] chestArray = chest.split("#");
 			if (chestArray.length != 4)
 				this.getLogger().log(Level.SEVERE,
 						"Error in the chests at the config.");
-			Chest newChest = new Chest(chestArray[0], new Double(chestArray[1]),
+			Crate newChest = new Crate(chestArray[0], new Double(chestArray[1]),
 					new Boolean(chestArray[2]), chestArray[3]);
 			chestList.put(newChest, newChest.getProbability());
 		}
@@ -78,7 +78,7 @@ public class MiningCrates extends JavaPlugin {
 	
 	private void updateChestsProb(){
 		Double prob = 0.0;
-		for(Chest chest : chestList.keySet()){
+		for(Crate chest : chestList.keySet()){
 			prob += chest.getProbability();
 			chestList.put(chest, prob);
 		}
@@ -120,4 +120,14 @@ public class MiningCrates extends JavaPlugin {
 	    }
 	    return null;
 	}
+	public static Crate getCrateByName(String name){
+		  Crate ret = null;
+		  for(Crate c : MiningCrates.chestList.keySet()){
+		   if(c.getName().equals(name)){
+		    ret = c;
+		    continue;
+		   }
+		  }
+		  return ret;
+		 }
 }

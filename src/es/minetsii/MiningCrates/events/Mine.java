@@ -1,14 +1,25 @@
 package es.minetsii.MiningCrates.events;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import es.minetsii.MiningCrates.MiningCrates;
-import es.minetsii.MiningCrates.chests.Chest;
+import es.minetsii.MiningCrates.chests.Crate;
 
 public class Mine implements Listener {
 	MiningCrates plugin;
@@ -25,22 +36,68 @@ public class Mine implements Listener {
 				return;
 		for(String group : MiningCrates.groups.keySet()){
 			if(p.hasPermission(MiningCrates.group_Permission + group)){
-				//TODO Comprobación del random respecto al porcentaje del grupo, en caso positivo lanzar el getRandomChest(), sacar los datos, colocarlo, etc...
-				//Probabilidad de Acierto = probabilidadBloque * probabilidadGrupo
 				Double probability = MiningCrates.blocksAffected.get(e.getBlock().getType()) * MiningCrates.groups.get(group);
 				if(i <= probability){
-					Chest chest = getRandomChest();
+					Crate chest = getRandomChest();
 					if(chest == null) continue;
-					//TODO Aquí se sustituye el bloque por el cofre
+					Block b = e.getBlock();
+					b.setType(Material.CHEST);
+					String s = chest.getName();
+					Chest ch = (Chest) b;
+					ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
+					ItemStack item = new ItemStack(Material.DRAGON_EGG);
+					ItemMeta im = item.getItemMeta();
+					im.setDisplayName(s);
+					item.setItemMeta(im);
+					Inventory ci = ch.getBlockInventory();
+					ci.setItem(0, item);
+					ci.setItem(1, item);
+					for(Player all : Bukkit.getServer().getOnlinePlayers()){
+						if(all != p)
+						all.sendBlockChange(b.getLocation(), Material.BARRIER, (byte) 0);
+					}
+					
 				}
 			}
 		}
 	}
 	
-	private Chest getRandomChest(){
+	@EventHandler
+	public void chestopen(PlayerInteractEvent e){
+		Player p = e.getPlayer();
+		if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+		    Material m = e.getClickedBlock().getType();
+		    if(m.equals(Material.CHEST)){
+		    	Chest ch = (Chest) e.getClickedBlock();
+		    	Inventory ci = ch.getBlockInventory();
+		    	if(ci.getItem(0).equals(new ItemStack(Material.ENDER_PORTAL_FRAME)) && ci.getItem(1).equals(new ItemStack(Material.DRAGON_EGG))){
+		    		ItemStack i = ci.getItem(0);
+		    		ItemMeta im = i.getItemMeta();
+		    		String s = im.getDisplayName();
+		    		List<String> chestNames = new ArrayList<String>();
+		    		for(Crate c : MiningCrates.chestList.keySet()){
+		    		     chestNames.add(c.getName());
+		    		}
+		    		if(chestNames.contains(s)){
+		    			Crate c = MiningCrates.getCrateByName(s);
+		    			String cmd = c.getCommand();
+		    			if(c.getIsConsole()){
+		    				 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%p%", p.getName()));
+		    				}else{
+		    				  Bukkit.dispatchCommand(p, cmd);
+		    				}
+
+		    		}
+		    	}
+		    }
+		}
+	}
+	
+	
+	private Crate getRandomChest(){
 		//TODO Seleccionar un cofre random y devolverlo
 		Double i = new Random().nextDouble() * 100;
-		Chest chest = null;
+		Crate chest = null;
 		for(Double chestProb : MiningCrates.chestList.values()){
 			if(i <= chestProb)
 				chest = MiningCrates.getKeyByValue(MiningCrates.chestList, chestProb);
