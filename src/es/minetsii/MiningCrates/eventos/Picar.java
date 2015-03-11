@@ -1,5 +1,5 @@
 package es.minetsii.MiningCrates.eventos;
 
-public class picar {
+public class Picar {
 
 }
