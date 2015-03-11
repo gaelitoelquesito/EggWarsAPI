@@ -17,10 +17,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import es.minetsii.MiningCrates.MiningCrates;
 
-public class Picar implements Listener {
+public class Mine implements Listener {
 	MiningCrates plugin;
 
-	public Picar(MiningCrates plugin) {
+	public Mine(MiningCrates plugin) {
 		this.plugin = plugin;
 	}
 
