@@ -26,9 +26,7 @@ public class Mine implements Listener {
 
 	@EventHandler
 	public void mineEvent(BlockBreakEvent e) {
-		Player p = e.getPlayer();
-		Random r = new Random();
-		Double i = r.nextDouble();
+		Double i = new Random().nextDouble() * 100;
 		if(!MiningCrates.blocksAffected.containsKey(e.getBlock().getType()))
 				return;
 		for(String group : MiningCrates.groups.keySet()){
