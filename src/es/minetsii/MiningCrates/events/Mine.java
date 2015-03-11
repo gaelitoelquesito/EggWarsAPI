@@ -80,7 +80,6 @@ public class Mine implements Listener {
 	    		for(Crate c : MiningCrates.chestList.keySet()){
 	    		     chestNames.add(c.getName());
 	    		}
-	    		
 	    		if(chestNames.contains(s)){
 	    			Crate c = MiningCrates.getCrateByName(s);
 	    			String cmd = c.getCommand();
