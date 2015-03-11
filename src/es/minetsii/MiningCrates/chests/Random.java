@@ -9,9 +9,9 @@ import org.bukkit.inventory.ItemStack;
 
 import es.minetsii.MiningCrates.MiningCrates;
 
-public class random implements Listener {
+public class Random implements Listener {
 	MiningCrates plugin;
-	public random(MiningCrates plugin){
+	public Random(MiningCrates plugin){
 		this.plugin = plugin;
 	}
 	
