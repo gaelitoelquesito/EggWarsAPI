@@ -1,4 +1,4 @@
-package es.minetsii.MiningCrates.eventos;
+package es.minetsii.MiningCrates.events;
 
 import java.util.Random;
 
