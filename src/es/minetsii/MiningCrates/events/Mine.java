@@ -63,31 +63,34 @@ public class Mine implements Listener {
 	}
 	
 	@EventHandler
-	public void chestopen(PlayerInteractEvent e){
+	public void chestOpen(PlayerInteractEvent e){
 		Player p = e.getPlayer();
 		if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 		    Material m = e.getClickedBlock().getType();
 		    if(m.equals(Material.CHEST)){
 		    	Chest ch = (Chest) e.getClickedBlock();
 		    	Inventory ci = ch.getBlockInventory();
-		    	if(ci.getItem(0).equals(new ItemStack(Material.ENDER_PORTAL_FRAME)) && ci.getItem(1).equals(new ItemStack(Material.DRAGON_EGG))){
-		    		ItemStack i = ci.getItem(0);
-		    		String s = i.getItemMeta().getDisplayName();
-		    		List<String> chestNames = new ArrayList<String>();
-		    		for(Crate c : MiningCrates.chestList.keySet()){
-		    		     chestNames.add(c.getName());
-		    		}
-		    		if(chestNames.contains(s)){
-		    			Crate c = MiningCrates.getCrateByName(s);
-		    			String cmd = c.getCommand();
-		    			if(c.getIsConsole()){
-		    				 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%p%", p.getName()));
-		    				}else{
-		    				  Bukkit.dispatchCommand(p, cmd);
-		    				}
+		    	if(!ci.getItem(0).equals(new ItemStack(Material.ENDER_PORTAL_FRAME)) || !ci.getItem(1).equals(new ItemStack(Material.DRAGON_EGG)))
+		    		return;
+		    	
+	    		ItemStack i = ci.getItem(0);
+	    		String s = i.getItemMeta().getDisplayName();
+	    		List<String> chestNames = new ArrayList<String>();
+	    		
+	    		for(Crate c : MiningCrates.chestList.keySet()){
+	    		     chestNames.add(c.getName());
+	    		}
+	    		
+	    		if(chestNames.contains(s)){
+	    			Crate c = MiningCrates.getCrateByName(s);
+	    			String cmd = c.getCommand();
+	    			if(c.getIsConsole()){
+	    				 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%p%", p.getName()));
+	    				}else{
+	    				  Bukkit.dispatchCommand(p, cmd);
+	    				}
 
-		    		}
-		    	}
+	    		}
 		    }
 		}
 	}
