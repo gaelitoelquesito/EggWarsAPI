@@ -21,6 +21,7 @@ public class MiningCrates extends JavaPlugin {
 	public static String use_Permission = "tempperm.use";
 	public static List<Chest> chestList;
 	public static Map<Material, Double> blocksAffected;
+	public static Map<String, Double> groups;
 
 	public Mine Mine = new Mine(this);
 
@@ -35,7 +36,7 @@ public class MiningCrates extends JavaPlugin {
 						+ "\n");
 
 		getConfig().addDefault("groupPercent",
-				new String[] { "default:5", "vip:15" });
+				new String[] { "default:5.0", "vip:15" });
 		getConfig().addDefault("chests", new String[] {});
 		getConfig().addDefault(
 				"blocksAffected",
@@ -44,14 +45,15 @@ public class MiningCrates extends JavaPlugin {
 						"EMERALD_ORE:0.8" });
 		getConfig().options().copyHeader(true);
 		getConfig().options().copyDefaults(true);
-		
+
 		saveConfig();
 		reloadConfig();
-		
+
 		Bukkit.getServer().getPluginManager().registerEvents(Mine, this);
-		
+
 		loadChests();
 		loadBlocks();
+		loadGroups();
 	}
 
 	@Override
@@ -70,17 +72,32 @@ public class MiningCrates extends JavaPlugin {
 					new Boolean(chestArray[2]), chestArray[3]));
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void loadBlocks() {
 		blocksAffected = new HashMap<Material, Double>();
 		for (String block : this.getConfig().getStringList("blocksAffected")) {
 			String[] blockArray = block.split(":");
 			if (blockArray.length != 2)
-				this.getLogger().log(Level.SEVERE,
-						"Error in the chests at the config. Must be MATERIAL:PERCENT");
-			Material mat = (StringUtils.isNumeric(blockArray[0])) ? Material.getMaterial(new Integer(blockArray[0])) : Material.getMaterial(blockArray[0]);
+				this.getLogger()
+						.log(Level.SEVERE,
+								"Error in the chests at the config. Must be MATERIAL:PERCENT");
+			Material mat = (StringUtils.isNumeric(blockArray[0])) ? Material
+					.getMaterial(new Integer(blockArray[0])) : Material
+					.getMaterial(blockArray[0]);
 			blocksAffected.put(mat, new Double(blockArray[1]));
+		}
+	}
+
+	private void loadGroups() {
+		groups = new HashMap<String, Double>();
+		for (String group : this.getConfig().getStringList("blocksAffected")) {
+			String[] groupArray = group.split(":");
+			if (groupArray.length != 2)
+				this.getLogger()
+						.log(Level.SEVERE,
+								"Error in the chests at the config. Must be MATERIAL:PERCENT");
+			groups.put(groupArray[0], new Double(groupArray[1]));
 		}
 	}
 
