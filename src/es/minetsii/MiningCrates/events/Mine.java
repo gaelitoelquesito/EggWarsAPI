@@ -29,8 +29,9 @@ public class Mine implements Listener {
 				//Probabilidad de Acierto = probabilidadBloque * probabilidadGrupo
 				Double probability = MiningCrates.blocksAffected.get(e.getBlock().getType()) * MiningCrates.groups.get(group);
 				if(i <= probability){
-					getRandomChest();
-					// y mucho blablabla
+					Chest chest = getRandomChest();
+					if(chest == null) continue;
+					//TODO Aquí se sustituye el bloque por el cofre
 				}
 			}
 		}
@@ -39,10 +40,11 @@ public class Mine implements Listener {
 	private Chest getRandomChest(){
 		//TODO Seleccionar un cofre random y devolverlo
 		Double i = new Random().nextDouble() * 100;
+		Chest chest = null;
 		for(Double chestProb : MiningCrates.chestList.values()){
 			if(i <= chestProb)
-				return MiningCrates.getKeyByValue(MiningCrates.chestList, chestProb);
+				chest = MiningCrates.getKeyByValue(MiningCrates.chestList, chestProb);
 		}
-		return null;
+		return chest;
 	}
 }
