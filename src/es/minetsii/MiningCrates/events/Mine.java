@@ -45,13 +45,13 @@ public class Mine implements Listener {
 					String s = chest.getName();
 					Chest ch = (Chest) b;
 					ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
-					ItemStack item = new ItemStack(Material.DRAGON_EGG);
+					ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
 					ItemMeta im = item.getItemMeta();
 					im.setDisplayName(s);
 					item.setItemMeta(im);
 					Inventory ci = ch.getBlockInventory();
 					ci.setItem(0, item);
-					ci.setItem(1, item);
+					ci.setItem(1, item2);
 					for(Player all : Bukkit.getServer().getOnlinePlayers()){
 						if(all != p)
 						all.sendBlockChange(b.getLocation(), Material.BARRIER, (byte) 0);
@@ -72,8 +72,7 @@ public class Mine implements Listener {
 		    	Inventory ci = ch.getBlockInventory();
 		    	if(ci.getItem(0).equals(new ItemStack(Material.ENDER_PORTAL_FRAME)) && ci.getItem(1).equals(new ItemStack(Material.DRAGON_EGG))){
 		    		ItemStack i = ci.getItem(0);
-		    		ItemMeta im = i.getItemMeta();
-		    		String s = im.getDisplayName();
+		    		String s = i.getItemMeta().getDisplayName();
 		    		List<String> chestNames = new ArrayList<String>();
 		    		for(Crate c : MiningCrates.chestList.keySet()){
 		    		     chestNames.add(c.getName());
