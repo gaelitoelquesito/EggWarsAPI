@@ -12,6 +12,9 @@ public class Chest {
 	private List<ItemStack> items;
 	
 	public Chest(String name, String type){
+		// Nombre;tipo:argumentos
+		// Cofre1;cash:1500
+		// Cofre2;items:Item1#amount#enchant,lvl-Item2#amount#enchant,lvl
 		this.name = name;
 		this.type = type;
 		this.amount = 0;
