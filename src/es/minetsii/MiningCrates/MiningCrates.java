@@ -26,7 +26,7 @@ public class MiningCrates extends JavaPlugin {
 		getConfig().addDefault("chests", new String[] {});
 		getConfig().addDefault("percent", 3);
 		getConfig().addDefault("blocksAffected",
-				new String[] {"STONE","IRON_ORE","DIAMOND_ORE","COAL_ORE","REDSTONE_ORE","LAPIS_ORE","EMERALD_ORE"});
+				new String[] { "STONE", "IRON_ORE","DIAMOND_ORE","COAL_ORE","REDSTONE_ORE","LAPIS_ORE","EMERALD_ORE"});
 		getConfig().options().copyHeader(true);
 		getConfig().options().copyDefaults(true);
 		

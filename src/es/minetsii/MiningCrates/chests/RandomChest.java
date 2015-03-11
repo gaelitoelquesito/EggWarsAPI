@@ -8,14 +8,14 @@ import es.minetsii.MiningCrates.MiningCrates;
 
 public class RandomChest implements Listener {
 	MiningCrates plugin;
-	public RandomChest(MiningCrates plugin){
+
+	public RandomChest(MiningCrates plugin) {
 		this.plugin = plugin;
 	}
-	
-	
+
 	Chest ch;
-	
-	public void Random(){
+
+	public void Random() {
 		Random r = new Random();
 	}
 
