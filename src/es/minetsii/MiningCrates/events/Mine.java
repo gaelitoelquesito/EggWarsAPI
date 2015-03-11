@@ -26,6 +26,7 @@ public class Mine implements Listener {
 
 	@EventHandler
 	public void mineEvent(BlockBreakEvent e) {
+		Player p = e.getPlayer();
 		Double i = new Random().nextDouble() * 100;
 		if(!MiningCrates.blocksAffected.containsKey(e.getBlock().getType()))
 				return;
@@ -44,7 +45,7 @@ public class Mine implements Listener {
 	
 	private Chest getRandomChest(){
 		//TODO Seleccionar un cofre random y devolverlo
-		Double i = new Random().nextDouble();
+		Double i = new Random().nextDouble() * 100;
 		return null;
 	}
 	
