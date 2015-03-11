@@ -9,16 +9,16 @@ import org.bukkit.inventory.ItemStack;
 
 import es.minetsii.MiningCrates.MiningCrates;
 
-public class Random implements Listener {
+public class RandomChest implements Listener {
 	MiningCrates plugin;
-	public Random(MiningCrates plugin){
+	public RandomChest(MiningCrates plugin){
 		this.plugin = plugin;
 	}
 	
 	
 	Chest ch;
 	
-	public void random(){
+	public void Random(){
 		Random r = new Random();
 		List<ItemStack> i = ch.getItems();
 		int size = i.size();
