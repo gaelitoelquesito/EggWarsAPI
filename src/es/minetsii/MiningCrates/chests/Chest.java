@@ -14,7 +14,7 @@ public class Chest {
 	
 	public Chest(String name, String type, int probability){
 		// Nombre;Probabilidad;tipo:argumentos
-		// Cofre1;15;cash:1500
+		// Cofre1;15;cash:1500,15-1100,6
 		// Cofre2;5;items:Item1#amount#enchant,lvl-Item2#amount#enchant,lvl
 		this.name = name;
 		this.type = type;
@@ -28,6 +28,9 @@ public class Chest {
 	}
 	public String getType(){
 		return type;
+	}
+	public int getProbability(){
+		return probability;
 	}
 	public int getAmount(){
 		return amount;
