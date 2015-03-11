@@ -18,7 +18,7 @@ public class MiningCrates extends JavaPlugin {
 
 	public static String prefix = "§f[§eMCratesP§f] ";
 
-	public static String use_Permission = "tempperm.use";
+	public static String group_Permission = "miningcrates.group.";
 	public static List<Chest> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;

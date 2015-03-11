@@ -25,23 +25,21 @@ public class Mine implements Listener {
 	}
 
 	@EventHandler
-	public void picar(BlockBreakEvent e) {
+	public void mineEvent(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		Random r = new Random();
-		int i = r.nextInt(100);
-		if (i <= plugin.getConfig().getInt("percent")) {
-			Inventory inv = Bukkit.createInventory(p, 27, p.getUniqueId() + "");
-			Block b = e.getBlock();
-			Location l = b.getLocation();
-			b.setType(Material.CHEST);
-			Chest c = (Chest) b;
-			Inventory ci = c.getInventory();
-			ItemStack item = new ItemStack(Material.STONE);
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(p.getUniqueId() + "");
-			item.setItemMeta(im);
-			c.getInventory().setItem(0, item);
+		Double i = r.nextDouble();
+		for(String group : MiningCrates.groups.keySet()){
+			if(p.hasPermission(MiningCrates.group_Permission + group)){
+				//TODO Comprobación del random respecto al porcentaje del grupo, en caso positivo lanzar el getRandomChest(), sacar los datos, colocarlo, etc...
+			}
 		}
+	}
+	
+	private Chest getRandomChest(){
+		//TODO Seleccionar un cofre random y devolverlo
+		
+		return null;
 	}
 
 }
