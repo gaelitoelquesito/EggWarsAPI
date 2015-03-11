@@ -7,7 +7,6 @@ public class MiningCrates extends JavaPlugin {
 	public static String prefix = "§f[§eMCratesP§f] ";
 	
 	public static String use_Permission = "tempperm.use";
-	//main
 	@Override
 	public void onEnable() {
 		
