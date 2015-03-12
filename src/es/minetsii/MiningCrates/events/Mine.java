@@ -89,11 +89,12 @@ public class Mine implements Listener {
 			Material m = e.getClickedBlock().getType();
 			if (m.equals(Material.CHEST)) {
 				Chest ch = (Chest) e.getClickedBlock().getState();
-				Inventory ci = ch.getBlockInventory();
+				Inventory ci = ch.getInventory();
 				if (!ci.getItem(0).equals(
 						new ItemStack(Material.ENDER_PORTAL_FRAME))
 						|| !ci.getItem(1).equals(
-								new ItemStack(Material.DRAGON_EGG)))
+								new ItemStack(Material.DRAGON_EGG)) || !ci.getItem(1).getItemMeta()
+										.getDisplayName().equals(p.getUniqueId().toString())){
 					return;
 
 				ItemStack i = ci.getItem(0);
@@ -110,6 +111,7 @@ public class Mine implements Listener {
 					chestNames.add(c.getName());
 				}
 				if (chestNames.contains(s)) {
+					e.getClickedBlock().setType(Material.AIR);
 					Crate c = MiningCrates.getCrateByName(s);
 					String cmd = c.getCommand();
 					if (c.getIsConsole()) {
@@ -125,7 +127,6 @@ public class Mine implements Listener {
 	}
 
 	private Crate getRandomChest() {
-		// TODO Seleccionar un cofre random y devolverlo
 		Double i = new Random().nextDouble() * 100;
 		Crate chest = null;
 		for (Double chestProb : MiningCrates.chestList.values()) {
