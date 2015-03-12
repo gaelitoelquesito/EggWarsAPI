@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="src/" kind="src" path=""/>
+	<classpathentry excluding="src/|lib/" kind="src" path=""/>
 	<classpathentry kind="lib" path="lib/BungeeCord.jar"/>
 	<classpathentry kind="lib" path="lib/bungeecord-api-1.8-SNAPSHOT-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/spigot-1.8-R0.1-SNAPSHOT.jar"/>
