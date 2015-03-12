@@ -55,13 +55,15 @@ public class Mine implements Listener {
 			p.sendMessage(ChatColor.AQUA + "Random Generado: " + i
 					+ " Probabilidad del Usuario: " + probability);
 			if (i > probability)
-				continue;
+				break;
 			p.sendMessage(ChatColor.RED + "Cofre Obtenido!");
+			e.setCancelled(true);
 			Crate chest = getRandomChest();
 			if (chest == null)
-				continue;
+				break;
 			Block b = e.getBlock();
-			b.setType(BlockType.CHEST);
+			p.getInventory().addItem(new ItemStack(b.getType()));
+			b.setType(Material.CHEST);
 			String s = chest.getName();
 			Chest ch = (Chest) b;
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
