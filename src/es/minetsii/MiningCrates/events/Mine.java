@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -55,7 +56,7 @@ public class Mine implements Listener {
 					.getType()) * MiningCrates.groups.get(group);
 			p.sendMessage(ChatColor.AQUA + "Random Generado: " + i
 					+ " Probabilidad del Usuario: " + probability);
-			if (i > probability)
+			if (i > probability && detectchest(e.getBlock().getLocation()))
 				break;
 			p.sendMessage(ChatColor.RED + "Cofre Obtenido!");
 			e.setCancelled(true);
@@ -136,5 +137,13 @@ public class Mine implements Listener {
 						chestProb);
 		}
 		return chest;
+	}
+	private boolean detectchest(Location l){
+		if(l.add(1,0,0).getBlock().getType().equals(Material.CHEST) ||
+				l.add(-1,0,0).getBlock().getType().equals(Material.CHEST) ||
+						l.add(0,0,1).getBlock().getType().equals(Material.CHEST) ||
+								l.add(0,0,-1).getBlock().getType().equals(Material.CHEST))
+			return false;
+		else return true;
 	}
 }
