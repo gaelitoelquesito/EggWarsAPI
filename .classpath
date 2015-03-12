@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="src/" kind="src" path=""/>
+	<classpathentry kind="lib" path="lib/BungeeCord.jar"/>
+	<classpathentry kind="lib" path="lib/bungeecord-api-1.8-SNAPSHOT-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/spigot-1.8-R0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/worldguard-6.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/worldedit-bukkit-6.0.2-SNAPSHOT-dist.jar"/>
