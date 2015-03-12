@@ -9,9 +9,6 @@ public class Crate {
 	private String command;
 
 	public Crate(String name, Double probability, Boolean isConsole, String command) {
-		// Nombre;Probabilidad;esConsola;comando
-		// Cofre1;15.0;true;eco give %p% 5000
-		// Cofre2;5.0;false;fly
 		this.name = name;
 		this.probability = probability;
 		this.isConsole = isConsole;
