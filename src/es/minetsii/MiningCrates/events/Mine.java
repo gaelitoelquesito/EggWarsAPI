@@ -65,7 +65,7 @@ public class Mine implements Listener {
 			p.getInventory().addItem(new ItemStack(b.getType()));
 			b.setType(Material.CHEST);
 			String s = chest.getName();
-			Chest ch = (Chest) b;
+			Chest ch = (Chest) b.getState();
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
 			ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
 			ItemMeta im = item.getItemMeta();
