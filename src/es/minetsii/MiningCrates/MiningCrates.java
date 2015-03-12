@@ -1,8 +1,6 @@
 package es.minetsii.MiningCrates;
 //Finished
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -30,11 +28,11 @@ public class MiningCrates extends JavaPlugin {
 	public void onEnable() {
 
 		getConfig().options().header(
-				"#############################################" + "\n"
-						+ "#             - Mining Crates -             #"
-						+ "\n"
-						+ "#############################################"
-						+ "\n");
+				"#############################################" + "\n "+
+				"#             - Mining Crates -             #" + "\n" +
+				"# Permission for groups:                    #" + "\n" +
+				"# > miningcrates.group.GroupName            #" + "\n" +
+				"#############################################" + "\n");
 
 		getConfig().addDefault("groupPercent",
 				new String[] { "default:5.0", "vip:15" });
