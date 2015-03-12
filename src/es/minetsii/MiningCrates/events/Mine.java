@@ -64,11 +64,6 @@ public class Mine implements Listener {
 			Block b = e.getBlock();
 			p.getInventory().addItem(new ItemStack(b.getType()));
 			b.setType(Material.CHEST);
-			for (Player all : Bukkit.getServer().getOnlinePlayers()) {
-				if (all != p)
-					all.sendBlockChange(b.getLocation(), Material.BARRIER,
-							(byte) 0);
-			}
 			String s = chest.getName();
 			Chest ch = (Chest) b;
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
