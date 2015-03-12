@@ -64,6 +64,11 @@ public class Mine implements Listener {
 			Block b = e.getBlock();
 			p.getInventory().addItem(new ItemStack(b.getType()));
 			b.setType(Material.CHEST);
+			for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+				if (all != p)
+					all.sendBlockChange(b.getLocation(), Material.BARRIER,
+							(byte) 0);
+			}
 			String s = chest.getName();
 			Chest ch = (Chest) b;
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
@@ -71,14 +76,9 @@ public class Mine implements Listener {
 			ItemMeta im = item.getItemMeta();
 			im.setDisplayName(s);
 			item.setItemMeta(im);
-			Inventory ci = ch.getBlockInventory();
+			Inventory ci = ch.getInventory();
 			ci.setItem(0, item);
 			ci.setItem(1, item2);
-			for (Player all : Bukkit.getServer().getOnlinePlayers()) {
-				if (all != p)
-					all.sendBlockChange(b.getLocation(), Material.BARRIER,
-							(byte) 0);
-			}
 
 		}
 	}
