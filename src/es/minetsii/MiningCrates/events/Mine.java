@@ -19,6 +19,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.sk89q.worldedit.blocks.BlockType;
+
 import es.minetsii.MiningCrates.MiningCrates;
 import es.minetsii.MiningCrates.chests.Crate;
 
@@ -59,7 +61,7 @@ public class Mine implements Listener {
 			if (chest == null)
 				continue;
 			Block b = e.getBlock();
-			b.setType(Material.CHEST);
+			b.setType(BlockType.CHEST);
 			String s = chest.getName();
 			Chest ch = (Chest) b;
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
