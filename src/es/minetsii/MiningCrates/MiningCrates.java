@@ -100,7 +100,7 @@ public class MiningCrates extends JavaPlugin {
 
 	private void loadGroups() {
 		groups = new HashMap<String, Double>();
-		for (String group : this.getConfig().getStringList("blocksAffected")) {
+		for (String group : this.getConfig().getStringList("groupPercent")) {
 			String[] groupArray = group.split(":");
 			if (groupArray.length != 2)
 				this.getLogger()

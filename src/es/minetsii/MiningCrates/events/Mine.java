@@ -34,11 +34,18 @@ public class Mine implements Listener {
 	public void mineEvent(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		Double i = new Random().nextDouble() * 100;
-		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType()))
+		p.sendMessage("Bloque picado");
+		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())){
+			p.sendMessage("El bloque no esta en la lista");
 			return;
+		}else{
+			p.sendMessage("El bloque esta en la lista");
+		}
 		for (String group : MiningCrates.groups.keySet()) {
-			if (!p.hasPermission(MiningCrates.group_Permission + group))
+			if (!p.hasPermission(MiningCrates.group_Permission + group)){
+				p.sendMessage("Usuario sin permiso: "+ MiningCrates.group_Permission + group);
 				continue;
+			}
 			p.sendMessage("Permiso del usuario: "
 					+ MiningCrates.group_Permission + group);
 			Double probability = MiningCrates.blocksAffected.get(e.getBlock()
