@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -36,8 +37,10 @@ public class Mine implements Listener {
 				return;
 		for(String group : MiningCrates.groups.keySet()){
 			if(p.hasPermission(MiningCrates.group_Permission + group)){
+				p.sendMessage("TEST");
 				Double probability = MiningCrates.blocksAffected.get(e.getBlock().getType()) * MiningCrates.groups.get(group);
 				if(i <= probability){
+					p.sendMessage(ChatColor.RED+"TEST");
 					Crate chest = getRandomChest();
 					if(chest == null) continue;
 					Block b = e.getBlock();
