@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="src/" kind="src" path=""/>
 	<classpathentry exported="true" kind="lib" path="lib/spigot-1.8-R0.1-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/worldguard-6.0.0-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/worldedit-bukkit-6.0.2-SNAPSHOT-dist.jar"/>
+	<classpathentry kind="lib" path="lib/worldguard-6.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/worldedit-bukkit-6.0.2-SNAPSHOT-dist.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
