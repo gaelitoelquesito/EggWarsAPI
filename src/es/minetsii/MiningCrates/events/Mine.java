@@ -93,9 +93,8 @@ public class Mine implements Listener {
 				if (!ci.getItem(0).equals(
 						new ItemStack(Material.ENDER_PORTAL_FRAME))
 						|| !ci.getItem(1).equals(
-								new ItemStack(Material.DRAGON_EGG)){
+								new ItemStack(Material.DRAGON_EGG)))
 					return;
-
 			    if(!ci.getItem(1).getItemMeta()
 						.getDisplayName().equals(p.getUniqueId().toString()))
 			    	e.setCancelled(true);
