@@ -84,7 +84,7 @@ public class Mine implements Listener {
 		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Material m = e.getClickedBlock().getType();
 			if (m.equals(Material.CHEST)) {
-				Chest ch = (Chest) e.getClickedBlock();
+				Chest ch = (Chest) e.getClickedBlock().getState();
 				Inventory ci = ch.getBlockInventory();
 				if (!ci.getItem(0).equals(
 						new ItemStack(Material.ENDER_PORTAL_FRAME))
