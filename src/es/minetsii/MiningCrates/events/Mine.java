@@ -37,15 +37,16 @@ public class Mine implements Listener {
 		Player p = e.getPlayer();
 		Double i = new Random().nextDouble() * 100;
 		p.sendMessage("Bloque picado");
-		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())){
+		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) {
 			p.sendMessage("El bloque no esta en la lista");
 			return;
-		}else{
+		} else {
 			p.sendMessage("El bloque esta en la lista");
 		}
 		for (String group : MiningCrates.groups.keySet()) {
-			if (!p.hasPermission(MiningCrates.group_Permission + group)){
-				p.sendMessage("Usuario sin permiso: "+ MiningCrates.group_Permission + group);
+			if (!p.hasPermission(MiningCrates.group_Permission + group)) {
+				p.sendMessage("Usuario sin permiso: "
+						+ MiningCrates.group_Permission + group);
 				continue;
 			}
 			p.sendMessage("Permiso del usuario: "
@@ -69,8 +70,11 @@ public class Mine implements Listener {
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
 			ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
 			ItemMeta im = item.getItemMeta();
+			ItemMeta im2 = item2.getItemMeta();
 			im.setDisplayName(s);
+			im2.setDisplayName(p.getUniqueId().toString());
 			item.setItemMeta(im);
+			item2.setItemMeta(im2);
 			Inventory ci = ch.getInventory();
 			ci.setItem(0, item);
 			ci.setItem(1, item2);
@@ -93,8 +97,14 @@ public class Mine implements Listener {
 					return;
 
 				ItemStack i = ci.getItem(0);
+				ItemStack i2 = ci.getItem(1);
 				String s = i.getItemMeta().getDisplayName();
+				String s2 = i2.getItemMeta().getDisplayName();
 				List<String> chestNames = new ArrayList<String>();
+				if (!s2.equals(p.getUniqueId().toString())) {
+					e.setCancelled(true);
+					return;
+				}
 
 				for (Crate c : MiningCrates.chestList.keySet()) {
 					chestNames.add(c.getName());
