@@ -42,7 +42,7 @@ public class Mine implements Listener {
 		}
 		for (String group : MiningCrates.groups.keySet()) {
 			try{
-			if (!p.hasPermission("MiningCrates.group_Permission." + group)) {
+			if (!p.hasPermission("miningcrates.group." + group)) {
 				continue;
 			}
 			double block = MiningCrates.blocksAffected.get(e.getBlock()
@@ -56,12 +56,11 @@ public class Mine implements Listener {
 				break;
 			final Block b = e.getBlock();
 			e.setCancelled(true);
-			p.getInventory().addItem(new ItemStack(b.getType()));
-			b.setType(Material.TRAPPED_CHEST);
-			String s = chest.getName();
 			for(ItemStack item : e.getBlock().getDrops()){
 				p.getInventory().addItem(item);
 			}
+			b.setType(Material.TRAPPED_CHEST);
+			String s = chest.getName();
 			Chest ch = (Chest) b.getState();
 			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
 			ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
@@ -135,7 +134,7 @@ public class Mine implements Listener {
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								cmd.replace("%p%", p.getName()));
 					} else {
-						Bukkit.dispatchCommand(p, cmd);
+						Bukkit.dispatchCommand(p, cmd.replace("%p%", p.getName()));
 					}
 
 				}

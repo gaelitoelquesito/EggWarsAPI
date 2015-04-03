@@ -74,16 +74,11 @@ public class MiningCrates extends JavaPlugin {
 			if (chestArray.length != 4)
 				this.getLogger().log(Level.SEVERE,
 						"Error in the chests at the config.");
-			if(!StringUtils.isNumeric(chestArray[1])){
-				System.out.println(chestArray[0]+": Invalid number!");
-				return;
-			}
 			boolean b;
 			if(chestArray[2] == "false") b = false;
 			else b = true;
 			Crate newChest = new Crate(chestArray[0], new Double(chestArray[1]),
 					b, chestArray[3]);
-			System.out.println(newChest.getCommand()+" "+newChest.getProbability());
 			chestList.put(newChest, newChest.getProbability());
 			random.add(newChest);
 		}
@@ -110,14 +105,6 @@ public class MiningCrates extends JavaPlugin {
 			Material mat = (StringUtils.isNumeric(blockArray[0])) ? Material
 					.getMaterial(new Integer(blockArray[0])) : Material
 					.getMaterial(blockArray[0]);
-					if(mat == null){					
-						System.out.println("Invalid number"+blockArray[0]+"!");
-						return;
-					}
-					if(!StringUtils.isNumeric(blockArray[1])){
-						System.out.println(blockArray[0]+": Invalid number!");
-						return;
-					}
 			blocksAffected.put(mat, new Double(blockArray[1]));
 		}
 	}
@@ -130,10 +117,6 @@ public class MiningCrates extends JavaPlugin {
 				this.getLogger()
 						.log(Level.SEVERE,
 								"Error in the chests at the config. Must be NAME:PERCENT");
-			if(!StringUtils.isNumeric(groupArray[1])){
-				System.out.println(groupArray[0]+": Invalid number!");
-				return;
-			}
 			groups.put(groupArray[0], new Double(groupArray[1]));
 		}
 	}
