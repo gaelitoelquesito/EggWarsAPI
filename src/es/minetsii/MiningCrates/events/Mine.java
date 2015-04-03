@@ -42,7 +42,7 @@ public class Mine implements Listener {
 		}
 		for (String group : MiningCrates.groups.keySet()) {
 			try{
-			if (!p.hasPermission("miningcrates.group." + group)) {
+			if (!p.hasPermission(MiningCrates.group_Permission + group)) {
 				continue;
 			}
 			double block = MiningCrates.blocksAffected.get(e.getBlock()
