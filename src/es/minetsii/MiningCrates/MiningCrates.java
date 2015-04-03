@@ -1,6 +1,8 @@
 package es.minetsii.MiningCrates;
 //Finished
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -21,6 +23,8 @@ public class MiningCrates extends JavaPlugin {
 	public static Map<Crate, Double> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;
+	public static List<Crate> random = new ArrayList<Crate>();
+	public static int countdown;
 
 	public Mine Mine = new Mine(this);
 
@@ -30,6 +34,7 @@ public class MiningCrates extends JavaPlugin {
 		getConfig().options().header(
 				"#############################################" + "\n "+
 				"#             - Mining Crates -             #" + "\n" +
+				"# > gaelitoelquesito && IhToN               #" + "\n" +
 				"# Permission for groups:                    #" + "\n" +
 				"# > miningcrates.group.GroupName            #" + "\n" +
 				"#############################################" + "\n");
@@ -42,6 +47,7 @@ public class MiningCrates extends JavaPlugin {
 				new String[] { "STONE:0.1", "IRON_ORE:0.5", "DIAMOND_ORE:1.0",
 						"COAL_ORE:0.2", "REDSTONE_ORE:0.5", "LAPIS_ORE:0.8",
 						"EMERALD_ORE:0.8" });
+		getConfig().addDefault("Seconds_for_chest_despawn", 100);
 		getConfig().options().copyHeader(true);
 		getConfig().options().copyDefaults(true);
 
@@ -49,7 +55,8 @@ public class MiningCrates extends JavaPlugin {
 		reloadConfig();
 
 		Bukkit.getServer().getPluginManager().registerEvents(Mine, this);
-
+		
+		countdown = getConfig().getInt("Seconds_for_chest_despawn")*20;
 		loadChests();
 		loadBlocks();
 		loadGroups();
@@ -62,14 +69,23 @@ public class MiningCrates extends JavaPlugin {
 
 	private void loadChests() {
 		chestList = new HashMap<Crate, Double>();
-		for (String chest : this.getConfig().getStringList("chests")) {
+		for (String chest : this.getConfig().getStringList("chests")) {	
 			String[] chestArray = chest.split("#");
 			if (chestArray.length != 4)
 				this.getLogger().log(Level.SEVERE,
 						"Error in the chests at the config.");
+			if(!StringUtils.isNumeric(chestArray[1])){
+				System.out.println(chestArray[0]+": Invalid number!");
+				return;
+			}
+			boolean b;
+			if(chestArray[2] == "false") b = false;
+			else b = true;
 			Crate newChest = new Crate(chestArray[0], new Double(chestArray[1]),
-					new Boolean(chestArray[2]), chestArray[3]);
+					b, chestArray[3]);
+			System.out.println(newChest.getCommand()+" "+newChest.getProbability());
 			chestList.put(newChest, newChest.getProbability());
+			random.add(newChest);
 		}
 		updateChestsProb();
 	}
@@ -94,6 +110,14 @@ public class MiningCrates extends JavaPlugin {
 			Material mat = (StringUtils.isNumeric(blockArray[0])) ? Material
 					.getMaterial(new Integer(blockArray[0])) : Material
 					.getMaterial(blockArray[0]);
+					if(mat == null){					
+						System.out.println("Invalid number"+blockArray[0]+"!");
+						return;
+					}
+					if(!StringUtils.isNumeric(blockArray[1])){
+						System.out.println(blockArray[0]+": Invalid number!");
+						return;
+					}
 			blocksAffected.put(mat, new Double(blockArray[1]));
 		}
 	}
@@ -105,7 +129,11 @@ public class MiningCrates extends JavaPlugin {
 			if (groupArray.length != 2)
 				this.getLogger()
 						.log(Level.SEVERE,
-								"Error in the chests at the config. Must be MATERIAL:PERCENT");
+								"Error in the chests at the config. Must be NAME:PERCENT");
+			if(!StringUtils.isNumeric(groupArray[1])){
+				System.out.println(groupArray[0]+": Invalid number!");
+				return;
+			}
 			groups.put(groupArray[0], new Double(groupArray[1]));
 		}
 	}
