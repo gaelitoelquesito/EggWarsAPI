@@ -34,7 +34,7 @@ public class MiningCrates extends JavaPlugin {
 		getConfig().options().header(
 				"#############################################" + "\n "+
 				"#             - Mining Crates -             #" + "\n" +
-				"# > gaelitoelquesito && IhToN               #" + "\n" +
+				"# > gaelitoelquesito & IhToN                #" + "\n" +
 				"# Permission for groups:                    #" + "\n" +
 				"# > miningcrates.group.GroupName            #" + "\n" +
 				"#############################################" + "\n");
