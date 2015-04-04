@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -35,6 +36,7 @@ public class Mine implements Listener {
 	@EventHandler
 	public void mineEvent(BlockBreakEvent e) {
 		final Player p = e.getPlayer();
+		System.out.println(e.getBlock().getData());
 		Double i = new Random().nextDouble() * 100;
 		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) {
 			return;
@@ -57,6 +59,14 @@ public class Mine implements Listener {
 			final Block b = e.getBlock();
 			e.setCancelled(true);
 			for(ItemStack item : e.getBlock().getDrops()){
+				if(item.getType().isBlock()){
+					if(item.getType().equals(Material.IRON_ORE)){
+						item.setType(Material.IRON_INGOT);
+					}
+					else if(item.getType().equals(Material.GOLD_ORE)){
+						item.setType(Material.GOLD_INGOT);
+					}
+				}
 				p.getInventory().addItem(item);
 			}
 			b.setType(Material.TRAPPED_CHEST);
@@ -155,7 +165,7 @@ public class Mine implements Listener {
 			if(!e.getPlayer().hasPermission("MiningCrates.destroy")) e.setCancelled(true);
 			else ci.clear();
 		}
-	}	
+	}
 
 	private Crate getRandomChest() {
 		Double i = new Random().nextDouble() * 100;

@@ -46,7 +46,7 @@ public class MiningCrates extends JavaPlugin {
 				"blocksAffected",
 				new String[] { "STONE:0.1", "IRON_ORE:0.5", "DIAMOND_ORE:1.0",
 						"COAL_ORE:0.2", "REDSTONE_ORE:0.5", "LAPIS_ORE:0.8",
-						"EMERALD_ORE:0.8" });
+						"EMERALD_ORE:0.8","GOLD_ORE:0.6" });
 		getConfig().addDefault("Seconds_for_chest_despawn", 100);
 		getConfig().options().copyHeader(true);
 		getConfig().options().copyDefaults(true);
