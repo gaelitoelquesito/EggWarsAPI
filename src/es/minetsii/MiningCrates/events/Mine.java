@@ -15,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -36,7 +35,6 @@ public class Mine implements Listener {
 	@EventHandler
 	public void mineEvent(BlockBreakEvent e) {
 		final Player p = e.getPlayer();
-		System.out.println(e.getBlock().getData());
 		Double i = new Random().nextDouble() * 100;
 		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) {
 			return;
