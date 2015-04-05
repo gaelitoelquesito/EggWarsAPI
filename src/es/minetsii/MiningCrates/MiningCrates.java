@@ -23,7 +23,6 @@ public class MiningCrates extends JavaPlugin {
 	public static Map<Crate, Double> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;
-	public static List<Crate> random = new ArrayList<Crate>();
 	public static int countdown;
 
 	public Mine Mine = new Mine(this);
@@ -80,7 +79,6 @@ public class MiningCrates extends JavaPlugin {
 			Crate newChest = new Crate(chestArray[0], new Double(chestArray[1]),
 					b, chestArray[3]);
 			chestList.put(newChest, newChest.getProbability());
-			random.add(newChest);
 		}
 		updateChestsProb();
 	}

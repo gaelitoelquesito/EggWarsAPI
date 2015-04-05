@@ -10,11 +10,13 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -164,6 +166,31 @@ public class Mine implements Listener {
 			else ci.clear();
 		}
 	}
+	
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	public void spawn(ItemSpawnEvent e){
+		Item it = e.getEntity();
+		if(it.getItemStack().getType().equals(Material.DRAGON_EGG)){
+			for(Player p : Bukkit.getOnlinePlayers()){
+				if(it.getItemStack().getItemMeta().getDisplayName() == null) return;
+				if(it.getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase
+						(p.getUniqueId().toString())){
+					it.remove();
+				}
+			}
+		}
+		if(it.getItemStack().getType().equals(Material.ENDER_PORTAL_FRAME)){
+			for(Crate c : MiningCrates.chestList.keySet()){
+				if(it.getItemStack().getItemMeta().getDisplayName() == null) return;
+				if(c.getName().equalsIgnoreCase(it.getItemStack().getItemMeta().getDisplayName())){
+					it.remove();
+				}
+			}
+		}
+	}
+	
+	
 
 	private Crate getRandomChest() {
 		Double i = new Random().nextDouble() * 100;
@@ -172,11 +199,6 @@ public class Mine implements Listener {
 			if (i <= chestProb)
 				chest = MiningCrates.getKeyByValue(MiningCrates.chestList,
 						chestProb);
-		}
-		if(chest == null){
-			int r = new Random().nextInt(MiningCrates.random.size());
-			int r2 = r--;
-			MiningCrates.random.get(r2);
 		}
 		return chest;
 	}
