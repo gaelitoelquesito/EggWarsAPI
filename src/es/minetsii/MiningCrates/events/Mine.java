@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
@@ -33,15 +34,18 @@ public class Mine implements Listener {
 		this.plugin = plugin;
 	}
 
+	@EventHandler
+	public void placeBlock(BlockPlaceEvent e){
+		MiningCrates.placedBlocks.add(e.getBlock().getLocation());
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void mineEvent(BlockBreakEvent e) {
 		final Player p = e.getPlayer();
 		Double i = new Random().nextDouble() * 100;
-		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) {
-			return;
-		} else {
-		}
+		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) return;
+		if (!MiningCrates.placedBlocks.contains(e.getBlock().getLocation())) return;
 		for (String group : MiningCrates.groups.keySet()) {
 			try{
 			if (!p.hasPermission(MiningCrates.group_Permission + group)) {
@@ -57,18 +61,6 @@ public class Mine implements Listener {
 			if (chest == null)
 				break;
 			final Block b = e.getBlock();
-			e.setCancelled(true);
-			for(ItemStack item : e.getBlock().getDrops()){
-				if(item.getType().isBlock()){
-					if(item.getType().equals(Material.IRON_ORE)){
-						item.setType(Material.IRON_INGOT);
-					}
-					else if(item.getType().equals(Material.GOLD_ORE)){
-						item.setType(Material.GOLD_INGOT);
-					}
-				}
-				p.getInventory().addItem(item);
-			}
 			b.setType(Material.TRAPPED_CHEST);
 			String s = chest.getName();
 			Chest ch = (Chest) b.getState();

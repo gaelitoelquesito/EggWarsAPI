@@ -1,14 +1,15 @@
 package es.minetsii.MiningCrates;
 //Finished
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +24,7 @@ public class MiningCrates extends JavaPlugin {
 	public static Map<Crate, Double> chestList;
 	public static Map<Material, Double> blocksAffected;
 	public static Map<String, Double> groups;
+	public static Set<Location> placedBlocks;
 	public static int countdown;
 
 	public Mine Mine = new Mine(this);
@@ -58,6 +60,7 @@ public class MiningCrates extends JavaPlugin {
 		countdown = getConfig().getInt("Seconds_for_chest_despawn")*20;
 		loadChests();
 		loadBlocks();
+		loadPlacedBlocks();
 		loadGroups();
 	}
 
@@ -107,6 +110,10 @@ public class MiningCrates extends JavaPlugin {
 		}
 	}
 
+	private void loadPlacedBlocks() {
+		placedBlocks = new HashSet<Location>();
+	}
+	
 	private void loadGroups() {
 		groups = new HashMap<String, Double>();
 		for (String group : this.getConfig().getStringList("groupPercent")) {
