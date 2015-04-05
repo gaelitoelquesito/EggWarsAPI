@@ -36,6 +36,7 @@ public class Mine implements Listener {
 
 	@EventHandler
 	public void placeBlock(BlockPlaceEvent e){
+		if (!MiningCrates.blocksAffected.containsKey(e.getBlock().getType())) return;
 		MiningCrates.placedBlocks.add(e.getBlock().getLocation());
 	}
 	
