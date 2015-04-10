@@ -130,9 +130,17 @@ public class Mine implements Listener {
 					String cmd = c.getCommand();
 					if (c.getIsConsole()) {
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-								cmd.replace("%p%", p.getName()));
+								cmd.replace("%p%", p.getName()).replace("%cl%", 
+										ch.getLocation().getX()+" "+ch.getLocation().getY()+
+										" "+ch.getLocation().getZ()).replace("%pl%", 
+												p.getLocation().getX()+" "+p.getLocation().getY()+
+												" "+p.getLocation().getZ()));
 					} else {
-						Bukkit.dispatchCommand(p, cmd.replace("%p%", p.getName()));
+						Bukkit.dispatchCommand(p, cmd.replace("%p%", p.getName()).replace("%cl%", 
+								ch.getLocation().getX()+" "+ch.getLocation().getY()+
+								" "+ch.getLocation().getZ()).replace("%pl%", 
+										p.getLocation().getX()+" "+p.getLocation().getY()+
+										" "+p.getLocation().getZ()));
 					}
 
 				}
