@@ -7,12 +7,14 @@ public class Crate {
 	private Double probability;
 	private Boolean isConsole;
 	private String command;
+	private CrateEffect effect;
 
-	public Crate(String name, Double probability, Boolean isConsole, String command) {
+	public Crate(String name, Double probability, Boolean isConsole, String command,CrateEffect effect) {
 		this.name = name;
 		this.probability = probability;
 		this.isConsole = isConsole;
 		this.command = command;
+		this.effect = effect;
 	}
 
 	public String getName() {
@@ -30,9 +32,16 @@ public class Crate {
 	public String getCommand() {
 		return command;
 	}
+	public CrateEffect getEffect(){
+		return effect;
+	}
 	
 	public void setProbability(Double probability){
 		this.probability = probability;
+	}
+	
+	public void setEffect(CrateEffect effect){
+		this.effect = effect;
 	}
 	
 	public Double getProbChest(){

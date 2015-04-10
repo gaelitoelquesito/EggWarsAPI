@@ -7,12 +7,12 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -28,10 +28,12 @@ import es.minetsii.MiningCrates.MiningCrates;
 import es.minetsii.MiningCrates.chests.Crate;
 
 public class Mine implements Listener {
-	MiningCrates plugin;
+	private MiningCrates plugin;
+	private RemoveCrate rc;
 
 	public Mine(MiningCrates plugin) {
 		this.plugin = plugin;
+		this.rc = new RemoveCrate(plugin);
 	}
 
 	@EventHandler
@@ -40,7 +42,7 @@ public class Mine implements Listener {
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void mineEvent(BlockBreakEvent e) {
 		final Player p = e.getPlayer();
 		Double i = new Random().nextDouble() * 100;
@@ -57,45 +59,47 @@ public class Mine implements Listener {
 			double probability = gr * block;
 			if (i > probability || detectchest(e.getBlock().getLocation()) == false)
 				break;
-			Crate chest = getRandomChest();
+			final Crate chest = getRandomChest();
 			if (chest == null)
 				break;
 			final Block b = e.getBlock();
-			b.setType(Material.TRAPPED_CHEST);
-			String s = chest.getName();
-			Chest ch = (Chest) b.getState();
-			ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
-			ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
-			ItemMeta im = item.getItemMeta();
-			ItemMeta im2 = item2.getItemMeta();
-			im.setDisplayName(s);
-			im2.setDisplayName(p.getUniqueId().toString());
-			item.setItemMeta(im);
-			item2.setItemMeta(im2);
-			final Inventory ci = ch.getInventory();
-			ci.setItem(0, item);
-			ci.setItem(1, item2);
 			new BukkitRunnable(){
 				public void run(){
-					for(Player pl : Bukkit.getOnlinePlayers()){
-						if(p != pl)
-						pl.sendBlockChange(b.getLocation(), Material.AIR, (byte)0);
-					}
+					b.setType(Material.TRAPPED_CHEST);
+					String s = chest.getName();
+					Chest ch = (Chest) b.getState();
+					ItemStack item = new ItemStack(Material.ENDER_PORTAL_FRAME);
+					ItemStack item2 = new ItemStack(Material.DRAGON_EGG);
+					ItemMeta im = item.getItemMeta();
+					ItemMeta im2 = item2.getItemMeta();
+					im.setDisplayName(s);
+					im2.setDisplayName(p.getUniqueId().toString());
+					item.setItemMeta(im);
+					item2.setItemMeta(im2);
+					final Inventory ci = ch.getInventory();
+					ci.setItem(0, item);
+					ci.setItem(1, item2);
+					new BukkitRunnable(){
+						public void run(){
+							for(Player pl : Bukkit.getOnlinePlayers()){
+								if(p != pl)
+									pl.sendBlockChange(b.getLocation(), Material.AIR, (byte)0);
+							}
+						}
+					}.runTaskLater(plugin, 5);
+					new BukkitRunnable(){
+						public void run(){
+							ci.clear();
+							b.setType(Material.AIR);
+						}
+				}.runTaskLater(plugin, MiningCrates.countdown);
 				}
-			}.runTaskLater(plugin, 5);
-			new BukkitRunnable(){
-				public void run(){
-					ci.clear();
-					b.setType(Material.AIR);
-				}
-			}.runTaskLater(plugin, MiningCrates.countdown);
+			}.runTaskLater(plugin, 1);
 			}catch(Exception ex){
-				
 			}
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void chestOpen(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
@@ -117,21 +121,13 @@ public class Mine implements Listener {
 					e.setCancelled(true);
 					return;
 				}
-
 				for (Crate c : MiningCrates.chestList.keySet()) {
 					chestNames.add(c.getName());
 				}
 				if (chestNames.contains(s)) {
-					ci.clear();
-					e.getClickedBlock().setType(Material.AIR);
 					Crate c = MiningCrates.getCrateByName(s);
+					rc.removeCrate(c.getEffect(), ch);
 					String cmd = c.getCommand();
-					for(Player pl : Bukkit.getServer().getOnlinePlayers()){
-						pl.playSound(e.getClickedBlock()
-								.getLocation(), Sound.FIREWORK_BLAST, 30, 1);
-					}
-					ParticleEffect.FIREWORKS_SPARK.display(0.3F, 0.3F, 0.3F, 1, 50, 
-							e.getClickedBlock().getLocation(), 20);
 					if (c.getIsConsole()) {
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								cmd.replace("%p%", p.getName()));
@@ -187,10 +183,14 @@ public class Mine implements Listener {
 	private Crate getRandomChest() {
 		Double i = new Random().nextDouble() * 100;
 		Crate chest = null;
-		for (Double chestProb : MiningCrates.chestList.values()) {
-			if (i <= chestProb)
-				chest = MiningCrates.getKeyByValue(MiningCrates.chestList,
-						chestProb);
+		List<Crate> random = new ArrayList<Crate>();
+		for (Crate chestProb : MiningCrates.chestList.keySet()) {
+			random.add(chestProb);
+		}
+		Crate c = random.get(new Random().nextInt(random.size()));
+		if(c.getProbability() < i) chest = c;
+		if(chest == null){
+			chest = getRandomChest();
 		}
 		return chest;
 	}
