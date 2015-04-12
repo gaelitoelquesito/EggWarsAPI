@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.minetsii.MiningCrates.chests.CrateEffect;
 import es.minetsii.MiningCrates.chests.Crate;
 import es.minetsii.MiningCrates.events.Mine;
 
@@ -73,14 +74,14 @@ public class MiningCrates extends JavaPlugin {
 		chestList = new HashMap<Crate, Double>();
 		for (String chest : this.getConfig().getStringList("chests")) {	
 			String[] chestArray = chest.split("#");
-			if (chestArray.length != 4)
+			if (chestArray.length != 5)
 				this.getLogger().log(Level.SEVERE,
 						"Error in the chests at the config.");
 			boolean b;
 			if(chestArray[2] == "false") b = false;
 			else b = true;
 			Crate newChest = new Crate(chestArray[0], new Double(chestArray[1]),
-					b, chestArray[3]);
+					b, chestArray[3],getEffectByName(chestArray[4]));
 			chestList.put(newChest, newChest.getProbability());
 		}
 		updateChestsProb();
@@ -144,4 +145,10 @@ public class MiningCrates extends JavaPlugin {
 		  }
 		  return ret;
 		 }
+	
+	public static CrateEffect getEffectByName(String name){
+		CrateEffect effect = CrateEffect.valueOf(name);
+		if(effect == null) effect = CrateEffect.EXPLODE;
+		return effect;
+	}
 }
