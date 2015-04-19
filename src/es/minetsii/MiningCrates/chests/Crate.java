@@ -9,7 +9,8 @@ public class Crate {
 	private String command;
 	private CrateEffect effect;
 
-	public Crate(String name, Double probability, Boolean isConsole, String command,CrateEffect effect) {
+	public Crate(String name, Double probability, Boolean isConsole,
+			String command, CrateEffect effect) {
 		this.name = name;
 		this.probability = probability;
 		this.isConsole = isConsole;
@@ -32,21 +33,22 @@ public class Crate {
 	public String getCommand() {
 		return command;
 	}
-	public CrateEffect getEffect(){
+
+	public CrateEffect getEffect() {
 		return effect;
 	}
-	
-	public void setProbability(Double probability){
+
+	public void setProbability(Double probability) {
 		this.probability = probability;
 	}
-	
-	public void setEffect(CrateEffect effect){
+
+	public void setEffect(CrateEffect effect) {
 		this.effect = effect;
 	}
-	
-	public Double getProbChest(){
+
+	public Double getProbChest() {
 		Double ret = 0.0;
-		for(Crate chest : MiningCrates.chestList.keySet()){
+		for (Crate chest : MiningCrates.chestList.keySet()) {
 			ret += chest.getProbability();
 		}
 		ret = this.getProbability() * 100 / ret;
