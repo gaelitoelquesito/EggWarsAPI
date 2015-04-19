@@ -6,9 +6,9 @@ import org.bukkit.block.Chest;
 
 import es.minetsii.MiningCrates.MiningCrates;
 import es.minetsii.MiningCrates.chests.CrateEffect;
-import es.minetsii.MiningCrates.clicEffects.Explode;
-import es.minetsii.MiningCrates.clicEffects.Teleport;
-import es.minetsii.MiningCrates.clicEffects.Up;
+import es.minetsii.MiningCrates.clickEffects.Explode;
+import es.minetsii.MiningCrates.clickEffects.Teleport;
+import es.minetsii.MiningCrates.clickEffects.Up;
 
 public class RemoveCrate {
 

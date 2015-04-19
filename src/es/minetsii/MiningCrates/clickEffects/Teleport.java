@@ -1,4 +1,4 @@
-package es.minetsii.MiningCrates.clicEffects;
+package es.minetsii.MiningCrates.clickEffects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
