@@ -7,7 +7,7 @@ public enum CrateEffect {
 	@SuppressWarnings("deprecation")
 	private String type;
 
-	private CrateEffect(String type) {
+	CrateEffect(String type) {
 		this.type = type;
 	}
 }

@@ -37,6 +37,10 @@ public class MiningCrates extends JavaPlugin {
 				"#############################################" + "\n "+
 				"#             - Mining Crates -             #" + "\n" +
 				"# > gaelitoelquesito & IhToN                #" + "\n" +
+				"# Chest must be of type:                    #" + "\n" +
+				"# > name#proby#isConsole#command#effect     #" + "\n" +
+				"# Current effects:                          #" + "\n" +
+				"# > Explode  > Up  > Teleport               #" + "\n" +
 				"# Permission for groups:                    #" + "\n" +
 				"# > miningcrates.group.GroupName            #" + "\n" +
 				"#############################################" + "\n");

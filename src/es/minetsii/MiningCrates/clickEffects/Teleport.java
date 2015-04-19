@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 public class Teleport {
 
 	@SuppressWarnings("deprecation")
-	public static void teleport(Location l){
-		for(Player p : Bukkit.getOnlinePlayers()){
+	public static void teleport(Location l) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			p.playEffect(l, Effect.ENDER_SIGNAL, 100000);
 			p.playSound(l, Sound.ENDERMAN_TELEPORT, 30, 1);
 		}

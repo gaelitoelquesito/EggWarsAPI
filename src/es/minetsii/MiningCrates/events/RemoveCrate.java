@@ -14,17 +14,17 @@ public class RemoveCrate {
 
 	private MiningCrates plugin;
 	private Up up;
-	
-	public RemoveCrate(MiningCrates plugin){
+
+	public RemoveCrate(MiningCrates plugin) {
 		this.plugin = plugin;
 		this.up = new Up(plugin);
 	}
-	
-	public void removeCrate(CrateEffect effect, Chest ch){
+
+	public void removeCrate(CrateEffect effect, Chest ch) {
 		Location l = ch.getLocation();
 		ch.getInventory().clear();
 		ch.getLocation().getBlock().setType(Material.AIR);
-		switch(effect){
+		switch (effect) {
 		default:
 		case UP:
 			up.up(l);
