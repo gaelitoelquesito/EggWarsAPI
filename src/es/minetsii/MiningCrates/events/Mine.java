@@ -253,10 +253,10 @@ public class Mine implements Listener {
 	}
 
 	private boolean detectchest(Location l) {
-		if (l.add(1, 0, 0).getBlock().getType().equals(Material.CHEST)
-				|| l.add(-1, 0, 0).getBlock().getType().equals(Material.CHEST)
-				|| l.add(0, 0, 1).getBlock().getType().equals(Material.CHEST)
-				|| l.add(0, 0, -1).getBlock().getType().equals(Material.CHEST)) {
+		if (l.add(1, 0, 0).getBlock().getType().equals(Material.TRAPPED_CHEST)
+				|| l.add(-1, 0, 0).getBlock().getType().equals(Material.TRAPPED_CHEST)
+				|| l.add(0, 0, 1).getBlock().getType().equals(Material.TRAPPED_CHEST)
+				|| l.add(0, 0, -1).getBlock().getType().equals(Material.TRAPPED_CHEST)) {
 			return false;
 		} else
 			return true;
