@@ -63,6 +63,10 @@ public class MiningCrates extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().registerEvents(Mine, this);
 		
 		countdown = getConfig().getInt("Seconds_for_chest_despawn")*20;
+		
+		blocksAffected = new HashMap<Material, Double>();
+		placedBlocks = new HashSet<Location>();
+		
 		loadChests();
 		loadBlocks();
 		loadPlacedBlocks();
@@ -101,7 +105,6 @@ public class MiningCrates extends JavaPlugin {
 
 	@SuppressWarnings("deprecation")
 	private void loadBlocks() {
-		blocksAffected = new HashMap<Material, Double>();
 		for (String block : this.getConfig().getStringList("blocksAffected")) {
 			String[] blockArray = block.split(":");
 			if (blockArray.length != 2)
@@ -116,7 +119,7 @@ public class MiningCrates extends JavaPlugin {
 	}
 
 	private void loadPlacedBlocks() {
-		placedBlocks = new HashSet<Location>();
+		
 	}
 	
 	private void loadGroups() {
