@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="src/|lib/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/SuperMineBlocks/lib/spigot-1.8-R0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/SuperMineBlocks/lib/spigot-api-1.8-R0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/EggWars/lib/spigot 1.8.7.jar" sourcepath="/EggWars/lib/spigot 1.8.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
