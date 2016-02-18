@@ -88,5 +88,11 @@ public class EwPlayer {
     	return null;
     }
 	
+    public boolean isGlobalChat() {
+		return false;
+	}
+
+	public void setGlobalChat(boolean globalChat) {
+	}
 	
 }
