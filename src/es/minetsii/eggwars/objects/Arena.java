@@ -1,5 +1,6 @@
 package es.minetsii.eggwars.objects;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,11 +35,14 @@ public class Arena {
 		return null;
 	}
 
-	public Set<Location> getBlocksPlaced() {
+	public Set<Location> getPlacedBlocks() {
 		return null;
 	}
-
-	public void setBlocksPlaced(Set<Location> blocksPlaced) {
+	
+	public void addPlacedBlock(Location loc) {
+	}
+	
+	public void removePlacedBlock(Location loc) {
 	}
 
 	public Set<Generator> getGenerators() {
